@@ -3,6 +3,8 @@ mdock
 
 (m)ultiple (dock)ers
 
+![Container Ships](https://github.com/binocarlos/mdock/raw/master/ships.jpg)
+
 combine multiple docker servers as though they were one massive docker
 
 similar to the [libswarm](https://github.com/docker/libswarm) aggregate backend
