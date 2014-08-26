@@ -1,6 +1,6 @@
 {
   "name": "mdock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "combine multiple docker servers as though they were one massive docker",
   "main": "index.js",
   "scripts": {
