@@ -62,9 +62,14 @@ dockers.on('map', function(info, next){
   var name = info.name
   var container = info.container
   var image = info.image
+  var backend = info.backend
 
   if(!name.match(/^stub/)){
     throw new Error('stub name map')
+  }
+
+  if(backend.hostname!=name.replace('stub', 'node')){
+    throw new Error('backend')
   }
 
   if(container.Image!='binocarlos/bring-a-ping'){
@@ -87,9 +92,14 @@ dockers.on('start', function(info, next){
   var container = info.container
   var image = info.image
   var bootRecord = info.boot
+  var backend = info.backend
   
   if(!name.match(/^stub/)){
     throw new Error('stub name map')
+  }
+
+  if(backend.hostname!=name.replace('stub', 'node')){
+    throw new Error('backend')
   }
 
   if(container.Config.Image!='binocarlos/bring-a-ping'){
