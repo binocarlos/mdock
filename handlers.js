@@ -128,7 +128,7 @@ function startContainer(emitter){
 
 	return function(req, res){
 		var dockerVersion = req.headers['X-DOCKER-API-VERSION']
-		var containerID = req.headers['X-FLOCKER-CONTAINER']
+		var containerID = req.headers['X-MDOCK-CONTAINER']
 
 		getContainerServer(emitter, containerID, function(err, backend){
 
@@ -367,13 +367,13 @@ function getContainerServerAddress(emitter, id, done){
 
 function loadContainerServerAddress(emitter, req, res, done){
 
-	if(!req.headers['X-FLOCKER-CONTAINER']){
+	if(!req.headers['X-MDOCK-CONTAINER']){
 		res.statusCode = 500
 		res.end('no container header')
 		return
 	}
 
-	var id = req.headers['X-FLOCKER-CONTAINER']
+	var id = req.headers['X-MDOCK-CONTAINER']
 
 	getContainerServerAddress(emitter, id, function(err, address){
 		if(err){

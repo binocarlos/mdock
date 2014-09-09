@@ -10,7 +10,7 @@ most docker commands are targeted at a specific container/image - the exceptions
 run needs to target a specific server
 ps needs to run across all servers
 
-the job of flocker is to do the HTTP proxying with custom routing so you can use standard docker clients to speak to a mesh
+the job of mdock is to do the HTTP proxying with custom routing so you can use standard docker clients to speak to a mesh
 
 ## docker run
 

@@ -4,21 +4,21 @@ var util = require('util')
 var Router = require('./router')
 var Handlers = require('./handlers')
 
-function Flocker(){
+function MDock(){
 	EventEmitter.call(this)
 	var self = this;	
 	this.router = Router()
 	this.handlers = Handlers()
 
 	// the api handlers that target a specific server
-	// will set the X-FLOCKER-HOST header to do the routing
+	// will set the X-MDOCK-HOST header to do the routing
 	this.backends = hyperprox(function(req, next){
-		if(!req.headers['X-FLOCKER-HOST']){
-			return next('no flocker host found')
+		if(!req.headers['X-MDOCK-HOST']){
+			return next('no mdock host found')
 		}
-		var address = req.headers['X-FLOCKER-HOST'] || ''
+		var address = req.headers['X-MDOCK-HOST'] || ''
 		address = address.indexOf('http')==0 ? address : 'http://' + address
-		next(null, req.headers['X-FLOCKER-HOST'])
+		next(null, req.headers['X-MDOCK-HOST'])
 	})
 
 	this.backendsproxy = this.backends.handler()
@@ -43,7 +43,7 @@ function Flocker(){
 
 	// handle a direct proxy
 	this.handlers.on('proxy', function(req, res, address){
-		req.headers['X-FLOCKER-HOST'] = address
+		req.headers['X-MDOCK-HOST'] = address
 		self.backendsproxy(req, res)
 	})
 
@@ -54,27 +54,27 @@ function Flocker(){
 	this.router.on('images:create', this.handlers.createImage)
 
 	// this is a generic handler for any request targeted at a specific container name
-	// it expects req.headers['X-FLOCKER-CONTAINER'] to be set
+	// it expects req.headers['X-MDOCK-CONTAINER'] to be set
 	this.router.on('containers:targetid', this.handlers.targetid)
 }
 
-util.inherits(Flocker, EventEmitter)
+util.inherits(MDock, EventEmitter)
 
-Flocker.prototype.handler = function(){
+MDock.prototype.handler = function(){
 	return this.handle.bind(thid)
 }
 
-Flocker.prototype.handle = function(req, res){
+MDock.prototype.handle = function(req, res){
 	this.emit('request', req, res)
 	this.router.handler(req, res)
 }
 
-Flocker.prototype.find = function(name, done){
+MDock.prototype.find = function(name, done){
 
 	this.handlers.find(name, done)
 	
 }
 
 module.exports = function(){
-	return new Flocker()
+	return new MDock()
 }

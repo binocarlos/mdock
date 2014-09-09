@@ -6,7 +6,7 @@ function setVersionHeader(req, version){
 }
 
 function setContainerHeader(req, container){
-	req.headers['X-FLOCKER-CONTAINER'] = container
+	req.headers['X-MDOCK-CONTAINER'] = container
 }
 
 module.exports = function(){
